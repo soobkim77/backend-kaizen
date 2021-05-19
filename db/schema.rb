@@ -10,7 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_235347) do
+ActiveRecord::Schema.define(version: 2021_05_19_211144) do
+
+  create_table "boards", force: :cascade do |t|
+    t.string "title"
+    t.integer "user_id", null: false
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_boards_on_user_id"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string "title"
+    # date in form of "YYYY-MM-DD"
+    t.date "due_date"
+    t.text "description"
+    t.integer "board_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["board_id"], name: "index_tasks_on_board_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
@@ -19,4 +39,6 @@ ActiveRecord::Schema.define(version: 2021_05_18_235347) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "boards", "users"
+  add_foreign_key "tasks", "boards"
 end
