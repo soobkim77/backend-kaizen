@@ -48,3 +48,6 @@ gem 'fast_jsonapi'
 #JWT for authentication
 gem 'jwt'
 
+#awesome_print for formatting
+gem 'awesome_print'
+
