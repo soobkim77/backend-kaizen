@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_19_211144) do
+ActiveRecord::Schema.define(version: 2021_05_19_214000) do
 
   create_table "boards", force: :cascade do |t|
     t.string "title"
@@ -23,12 +23,12 @@ ActiveRecord::Schema.define(version: 2021_05_19_211144) do
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
-    # date in form of "YYYY-MM-DD"
     t.date "due_date"
     t.text "description"
     t.integer "board_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "completed", default: false
     t.index ["board_id"], name: "index_tasks_on_board_id"
   end
 
