@@ -3,11 +3,14 @@ class BoardsController < ApplicationController
 
 
     def index
-        @boards = Board.find_by(user_id: @@user.id)
+        @boards = Board.where(user_id: @@user.id)
+        render json: {boards: @boards}, status: :ok
     end
 
     def show
         @board = Board.find_by(id: params[:id])
+        @tasks = @board.tasks
+        render json: {board: @board, tasks: @tasks}, status: :ok
     end 
     
     def create
@@ -17,6 +20,22 @@ class BoardsController < ApplicationController
             @board.save
             render json: @board, status: :ok
         else
+            render json: {message: "You fucked up.", errors: @board.errors}, status: :not_acceptable
+        end
+    end
+
+    def update
+        if @board.update(board_params)
+            render json: @board, status: :acceptable
+        else
+            render json: {msg: "Failed Update"}, status: :not_acceptable
+        end
+    end
+
+    def destroy
+        if @board.destroy
+            render json: {message: "Blog successfully deleted."}, status: :ok
+        else 
             render json: {message: "You fucked up.", errors: @board.errors}, status: :not_acceptable
         end
     end
