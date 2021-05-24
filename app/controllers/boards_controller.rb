@@ -26,15 +26,16 @@ class BoardsController < ApplicationController
 
     def update
         if @board.update(board_params)
-            render json: @board, status: :acceptable
+            render json: @board, status: :ok
         else
             render json: {msg: "Failed Update"}, status: :not_acceptable
         end
     end
 
     def destroy
+        id = @board.id
         if @board.destroy
-            render json: {message: "Blog successfully deleted."}, status: :ok
+            render json: {message: "Blog successfully deleted.", id: id}, status: :ok
         else 
             render json: {message: "You fucked up.", errors: @board.errors}, status: :not_acceptable
         end
@@ -47,6 +48,6 @@ class BoardsController < ApplicationController
     end
 
     def board_params
-        params.require(:board).permit(:title, :description)
+        params.require(:board).permit(:title, :description, :id)
     end
 end
