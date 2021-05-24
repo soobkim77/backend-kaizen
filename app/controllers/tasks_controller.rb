@@ -25,8 +25,9 @@ class TasksController < ApplicationController
     end
 
     def update
+        byebug
         if @task.update(task_params)
-            render json: @task, status: :acceptable
+            render json: @task, status: :ok
         else
             render json: {msg: "Failed Update"}, status: :not_acceptable
         end
@@ -42,11 +43,11 @@ class TasksController < ApplicationController
 
     private
 
-    def find_board
-        @task = Task.find_by(id: params[:id])
+    def find_task
+        @task = Task.find(params[:id])
     end
 
     def task_params
-        params.require(:task).permit(:title, :description, :due_date, :board_id)
+        params.require(:task).permit!
     end
 end
