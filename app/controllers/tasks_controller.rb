@@ -15,7 +15,6 @@ class TasksController < ApplicationController
     
     def create
         @task = Task.new(task_params)
-        @task.user = @@user
         if @task.valid?
             @task.save
             render json: @task, status: :ok
@@ -25,7 +24,6 @@ class TasksController < ApplicationController
     end
 
     def update
-        byebug
         if @task.update(task_params)
             render json: @task, status: :ok
         else
