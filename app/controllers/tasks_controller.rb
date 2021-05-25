@@ -32,8 +32,9 @@ class TasksController < ApplicationController
     end
 
     def destroy
+        id = @task.id
         if @task.destroy
-            render json: {message: "Blog successfully deleted."}, status: :ok
+            render json: {message: "Blog successfully deleted.", id: id }, status: :ok
         else 
             render json: {message: "You fucked up.", errors: @task.errors}, status: :not_acceptable
         end
