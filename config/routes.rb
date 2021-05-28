@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   resources :sessions, only: [:create]
   resources :boards
   resources :tasks
+  resources :teams
+  resources :team_members, only: [:create, :destroy]
 end
