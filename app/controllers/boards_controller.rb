@@ -33,8 +33,9 @@ class BoardsController < ApplicationController
     end
 
     def destroy
+        id = @board.id
         if @board.destroy
-            render json: {message: "Blog successfully deleted."}, status: :ok
+            render json: {message: "Blog successfully deleted.", id: id}, status: :ok
         else 
             render json: {message: "You fucked up.", errors: @board.errors}, status: :not_acceptable
         end

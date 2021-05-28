@@ -15,7 +15,7 @@ class TasksController < ApplicationController
     
     def create
         @task = Task.new(task_params)
-        @task.user = @@user
+        # @task = @@user
         if @task.valid?
             @task.save
             render json: @task, status: :ok
@@ -25,7 +25,6 @@ class TasksController < ApplicationController
     end
 
     def update
-        byebug
         if @task.update(task_params)
             render json: @task, status: :ok
         else
@@ -34,8 +33,9 @@ class TasksController < ApplicationController
     end
 
     def destroy
+        id = @task.id
         if @task.destroy
-            render json: {message: "Blog successfully deleted."}, status: :ok
+            render json: {message: "Blog successfully deleted.", id: id }, status: :ok
         else 
             render json: {message: "You fucked up.", errors: @task.errors}, status: :not_acceptable
         end

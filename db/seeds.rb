@@ -12,18 +12,37 @@ User.destroy_all
 
 puts "Formulating Kai's"
 
-5.times do 
+20.times do 
     User.create(username: Faker::Name.first_name, password: "1234")
+end
+
+puts "Assembling Squads"
+
+5.times do
+    Team.create(leader_id: User.all.sample.id, name: Faker::Cannabis.strain, description: "lmao" )
+end
+
+puts "Assembling Avengers"
+
+20.times do
+    TeamMember.create(team_id: Team.all.sample.id, member_id: User.all.sample.id)
 end
 
 puts "Creating Boards"
 
-10.times do
-    Board.create(title: Faker::Movies::HarryPotter.spell, user: User.all.sample, description: Faker::Movies::HarryPotter.quote)
+40.times do
+    Board.create(title: Faker::Movies::HarryPotter.spell, owner: User.all.sample, description: Faker::Movies::HarryPotter.quote)
+end
+
+40.times do
+    Board.create(title: Faker::Movies::HarryPotter.spell, owner: Team.all.sample, description: Faker::Movies::HarryPotter.quote)
 end
 
 puts "Making Tasks"
 
-50.times do 
-    Task.create(title: Faker::Movies::HarryPotter.spell, board: Board.all.sample, description: Faker::Movies::HarryPotter.quote, due_date: "2021-06-29")
+status = ["open", "in-progress", "review", "completed"]
+
+300.times do 
+    Task.create(title: Faker::Movies::HarryPotter.spell, board: Board.all.sample, description: Faker::Movies::HarryPotter.quote, due_date: "2021-06-29", status: status.sample)
 end
+
