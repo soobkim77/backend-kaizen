@@ -3,5 +3,5 @@ class User < ApplicationRecord
     validates :username, uniqueness: { case_sensitive: false }
     has_many :boards, as: :owner, dependent: :destroy
     has_many :tasks, through: :boards
-    has_many :teams, dependent: :destroy 
+    has_many :teams, dependent: :destroy
 end
