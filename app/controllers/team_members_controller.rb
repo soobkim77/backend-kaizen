@@ -8,7 +8,6 @@ class TeamMembersController < ApplicationController
     end
 
     def deleter
-        byebug
         @TeamMember = TeamMember.find_by(team_id: params[:team_id], member_id: params[:member_id])
         @team = @TeamMember.team
         @TeamMember.destroy

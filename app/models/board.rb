@@ -3,7 +3,4 @@ class Board < ApplicationRecord
   has_many :tasks, dependent: :destroy
 
 
-  def statuses
-    self.tasks.map{|t| t.status}.uniq
-  end
 end

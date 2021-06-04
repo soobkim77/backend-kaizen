@@ -14,17 +14,14 @@ class BoardsController < ApplicationController
     end 
     
     def create
-
         @board = Board.new(board_params)
-        if params[:team] 
-            @board.owner_id = Team.find_by(name: params[:team]).id
-            byebug
+        if params[:owner_id] 
             @board
         else
             @board.owner_id = @@user.id
             @board
         end
-        
+        byebug
         if @board.valid?
             @board.save
             render json: @board, status: :ok
@@ -57,6 +54,6 @@ class BoardsController < ApplicationController
     end
 
     def board_params
-        params.require(:board).permit(:title, :description, :owner_type)
+        params.require(:board).permit(:title, :description, :owner_type, :owner_id)
     end
 end

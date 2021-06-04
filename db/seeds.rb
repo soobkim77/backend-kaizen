@@ -7,7 +7,11 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Task.destroy_all
 Board.destroy_all
+TeamMember.destroy_all
+Team.destroy_all
 User.destroy_all
+
+title = ["Work", "Chores", "Projects", "Databases", "Bootcamp", "MealPrep", "Workouts", "Fitness"]
 
 
 puts "Formulating Kai's"
@@ -18,7 +22,7 @@ end
 
 puts "Assembling Squads"
 
-5.times do
+15.times do
     Team.create(leader_id: User.all.sample.id, name: Faker::Cannabis.strain, description: "lmao" )
 end
 
@@ -30,11 +34,11 @@ end
 
 puts "Creating Boards"
 
-40.times do
+30.times do
     Board.create(title: Faker::Movies::HarryPotter.spell, owner: User.all.sample, description: Faker::Movies::HarryPotter.quote)
 end
 
-40.times do
+20.times do
     Board.create(title: Faker::Movies::HarryPotter.spell, owner: Team.all.sample, description: Faker::Movies::HarryPotter.quote)
 end
 
@@ -42,7 +46,7 @@ puts "Making Tasks"
 
 status = ["open", "in-progress", "review", "completed"]
 
-300.times do 
+600.times do 
     Task.create(title: Faker::Movies::HarryPotter.spell, board: Board.all.sample, description: Faker::Movies::HarryPotter.quote, due_date: "2021-06-29", status: status.sample)
 end
 
