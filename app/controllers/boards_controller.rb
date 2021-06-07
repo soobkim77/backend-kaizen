@@ -3,7 +3,7 @@ class BoardsController < ApplicationController
 
 
     def index
-        @boards = Board.where(user_id: @@user.id)
+        @boards = Board.where(owner_id: @@user.id, owner_type: "User")
         render json: {boards: @boards}, status: :ok
     end
 
@@ -15,7 +15,13 @@ class BoardsController < ApplicationController
     
     def create
         @board = Board.new(board_params)
-        @board.user = @@user
+        if params[:owner_id] 
+            @board
+        else
+            @board.owner_id = @@user.id
+            @board
+        end
+        byebug
         if @board.valid?
             @board.save
             render json: @board, status: :ok
@@ -48,6 +54,6 @@ class BoardsController < ApplicationController
     end
 
     def board_params
-        params.require(:board).permit(:title, :description)
+        params.require(:board).permit(:title, :description, :owner_type, :owner_id)
     end
 end
